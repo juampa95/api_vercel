@@ -1,0 +1,25 @@
+{
+    "items": [
+        {
+            "id": 0,
+            "name": "Hammer",
+            "price": 9.99,
+            "count": 20,
+            "category": "tools"
+        },
+        {
+            "id": 1,
+            "name": "Pliers",
+            "price": 5.99,
+            "count": 20,
+            "category": "consumables"
+        },
+        {
+            "id": 2,
+            "name": "Nails",
+            "price": 1.99,
+            "count": 100,
+            "category": "consumables"
+        }
+    ]
+}
