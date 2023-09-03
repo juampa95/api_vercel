@@ -137,7 +137,7 @@ async def book(book: SchemaBook):
         db_book = ModelBook(title=book.title, rating=book.rating, author_id=book.author_id)
         db.session.add(db_book)
         db.session.commit()
-        return db_book
+        return book
     except SQLAlchemyError as e:
         db.session.rollback()  # Realiza un rollback en caso de error
         return {"error": str(e)}
