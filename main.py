@@ -139,8 +139,7 @@ async def book(book: SchemaBook):
         db.session.commit()
         return db_book
     except SQLAlchemyError as e:
-        db.session.rollback()
-        app.logger.error(f"Error al hacer commit en la base de datos: {str(e)}")
+        db.session.rollback()  # Realiza un rollback en caso de error
         return {"error": str(e)}
 
 
