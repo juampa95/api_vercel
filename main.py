@@ -104,6 +104,7 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware, db
+from sqlalchemy.exc import SQLAlchemyError
 
 from schema import Book as SchemaBook
 from schema import Author as SchemaAuthor
@@ -132,10 +133,15 @@ async def root():
 
 @app.post('/book/', response_model=SchemaBook)
 async def book(book: SchemaBook):
-    db_book = ModelBook(title=book.title, rating=book.rating, author_id=book.author_id)
-    db.session.add(db_book)
-    db.session.commit()
-    return db_book
+    try:
+        db_book = ModelBook(title=book.title, rating=book.rating, author_id=book.author_id)
+        db.session.add(db_book)
+        db.session.commit()
+        return db_book
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        app.logger.error(f"Error al hacer commit en la base de datos: {str(e)}")
+        return {"error": str(e)}
 
 
 @app.get('/book/')
