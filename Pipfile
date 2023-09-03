@@ -7,6 +7,18 @@ name = "pypi"
 fastapi = "*"
 uvicorn = "*"
 requests = "*"
+sqlalchemy = "*"
+psycopg2 = "*"
+python-dotenv = "*"
+psycopg2-binary = "*"
+prisma = "*"
+prisma-client = "*"
+pydantic = "==1.10.12"
+install = "*"
+redis = "*"
+vercel-kv = "*"
+fastapi-sqlalchemy = "*"
+alembic = "*"
 
 [dev-packages]
 
