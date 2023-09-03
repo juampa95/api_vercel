@@ -2,6 +2,12 @@ import requests
 
 url = "https://api-vercel-git-main-juampa95.vercel.app/book/"
 
+book_data = {
+    "title": "Mi Libro",
+    "rating": 4.5,
+    "author_id": 1
+}
+
 # Realiza la solicitud POST
 response = requests.post(url, json=book_data)
 
