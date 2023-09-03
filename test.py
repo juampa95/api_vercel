@@ -35,3 +35,15 @@ if response.status_code == 200:
 else:
     print(f"Error al agregar el libro. Código de estado: {response.status_code}")
     print(response.text)
+
+
+url = "https://api-vercel-git-main-juampa95.vercel.app/delete-book/12"
+
+response = requests.delete(url, json=book_data)
+
+if response.status_code == 200:
+    new_book = response.json()
+    print(f"Libro eliminado exitosamente: {new_book}")
+else:
+    print(f"Error al eliminar el libro. Código de estado: {response.status_code}")
+    print(response.text)
