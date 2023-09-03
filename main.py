@@ -122,7 +122,7 @@ load_dotenv('.env')
 app = FastAPI()
 
 # to avoid csrftokenError
-app.add_middleware(DBSessionMiddleware, db_url=os.environ['POSTGRES_URL'])
+app.add_middleware(DBSessionMiddleware, db_url=os.environ['POSTGRES_URI'])
 
 
 @app.get("/")
