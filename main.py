@@ -128,7 +128,7 @@ app.add_middleware(DBSessionMiddleware, db_url=os.environ['POSTGRES_URI'])
 
 @app.get("/")
 async def root():
-    return {"message": "hola gente"}
+    return {"message": "Server is up and running!"}
 
 
 @app.post('/book/', response_model=SchemaBook)
@@ -137,7 +137,8 @@ async def book(book: SchemaBook):
         db_book = ModelBook(title=book.title, rating=book.rating, author_id=book.author_id)
         db.session.add(db_book)
         db.session.commit()
-        return book
+        db.session.flush()
+        return db_book
     except SQLAlchemyError as e:
         db.session.rollback()  # Realiza un rollback en caso de error
         return {"error": str(e)}
