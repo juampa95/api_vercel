@@ -13,13 +13,18 @@ BASE_DIR= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 sys.path.append(BASE_DIR)
 
+database_uri = os.environ.get('DATABASE_URI')
+
+if not database_uri:
+    database_uri = os.environ['DATABASE_URI']
+
 
 # This is the Alembic Config object, which provides
 # Access to the values within the .ini file in use.
 config = context.config
 
 #  Making a connection
-config.set_main_option('sqlalchemy.url', os.environ['DATABASE_URI'])
+config.set_main_option('sqlalchemy.url', database_uri)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
