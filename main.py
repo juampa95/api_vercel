@@ -62,7 +62,7 @@ async def author():
     return author
 
 
-@app.delete('delete_book/{id_book}')
+@app.delete('/delete_book/{id_book}')
 async def del_book(id_book:int):
     try:
         book = db.session.query(ModelBook).filter_by(id=id_book).first()
