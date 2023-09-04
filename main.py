@@ -44,6 +44,14 @@ async def book():
     return book
 
 
+@app.get('/book/{book_id}')
+async def query_book_by_id(book_id: int) -> ModelBook:
+    if book_id not in db.session.query(ModelBook).all():
+        raise HTTPException(status_code=400,detail=f'book with {book_id=} does not exist')
+    return ModelBook[id]
+
+
+
 @app.post('/author/', response_model=SchemaAuthor)
 async def author(author: SchemaAuthor):
     try:
@@ -76,6 +84,8 @@ async def del_book(id_book:int):
     except Exception as e:
         db.session.rollback()
         return {"error": str(e)}
+
+
 
 # To run locally
 if __name__ == '__main__':

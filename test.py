@@ -37,13 +37,16 @@ else:
     print(response.text)
 
 
-url = "https://api-vercel-git-main-juampa95.vercel.app/delete-book/12"
+url = "https://api-vercel-git-main-juampa95.vercel.app/delete-book/13"
+
+print(requests.delete(url).headers)
 
 response = requests.delete(url, json=book_data)
 
+
+
 if response.status_code == 200:
-    new_book = response.json()
-    print(f"Libro eliminado exitosamente: {new_book}")
+    print("Libro eliminado exitosamente")
 else:
     print(f"Error al eliminar el libro. Código de estado: {response.status_code}")
     print(response.text)
