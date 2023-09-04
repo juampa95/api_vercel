@@ -7,7 +7,7 @@ Base  = declarative_base()
 
 class Book(Base):
     __tablename__ = 'book'
-    id  = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     rating = Column(Float)
     time_created = Column(DateTime(timezone=True), server_default=func.now())

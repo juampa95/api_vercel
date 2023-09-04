@@ -80,8 +80,9 @@ async def del_book(id_book:int):
 
         if not book:
             raise HTTPException(status_code=404, detail="Book not found")
-        book.delete()
+        db.session.delete(book)
         db.session.commit()
+        db.session.refresh(book)
 
         return {'message': 'book deleted'}
     except Exception as e:
