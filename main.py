@@ -44,8 +44,8 @@ async def book():
     return book
 
 
-@app.get('/book/{book_id}')
-async def query_book_by_id(book_id: int, response_model=SchemaBook):
+@app.get('/book/{book_id}', response_model=SchemaBook)
+async def query_book_by_id(book_id: int):
     db_book = db.session.query(ModelBook).filter_by(id=book_id).first()
 
     if db_book is None:
@@ -80,7 +80,7 @@ async def del_book(id_book:int):
 
         if not book:
             raise HTTPException(status_code=404, detail="Book not found")
-        db.session.delete(book)
+        book.delete()
         db.session.commit()
 
         return {'message': 'book deleted'}
