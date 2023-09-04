@@ -45,10 +45,13 @@ async def book():
 
 
 @app.get('/book/{book_id}')
-async def query_book_by_id(book_id: int) -> ModelBook:
-    if book_id not in db.session.query(ModelBook).all():
-        raise HTTPException(status_code=400,detail=f'book with {book_id=} does not exist')
-    return ModelBook[id]
+async def query_book_by_id(book_id: int, response_model=SchemaBook):
+    db_book = db.session.query(ModelBook).filter_by(id=book_id).first()
+
+    if db_book is None:
+        raise HTTPException(status_code=404, detail=f'Book with ID {book_id} does not found')
+
+    return db_book
 
 
 
