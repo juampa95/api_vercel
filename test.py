@@ -37,9 +37,7 @@ else:
     print(response.text)
 
 
-url = "https://api-vercel-git-main-juampa95.vercel.app/delete-book/13"
-
-print(requests.delete(url).headers)
+url = "https://api-vercel-git-main-juampa95.vercel.app/delete-book/14"
 
 response = requests.delete(url, json=book_data)
 
