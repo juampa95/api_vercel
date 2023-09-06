@@ -42,6 +42,9 @@ response = requests.delete(url, json=book_data)
 if response.status_code == 200:
     print("Libro eliminado exitosamente")
 else:
+    print(f"Error al eliminar el libro. Código de estado: {response.status_code}")
+    print(response.text)
+
 url = "https://api-vercel-git-main-juampa95.vercel.app/med/"
 
 # med = Medic(name=med.name,
@@ -64,7 +67,4 @@ if response.status_code == 200:
     print("upload successful")
 else:
     print(f"ERROR: {response.status_code}")
-    print(response.text)
-
-    print(f"Error al eliminar el libro. Código de estado: {response.status_code}")
     print(response.text)
