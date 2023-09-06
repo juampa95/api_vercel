@@ -27,7 +27,7 @@ app.add_middleware(DBSessionMiddleware, db_url=os.environ['POSTGRES_URI'])
 
 @app.get("/")
 async def root():
-    return {"message": "Server is up and running!"}
+    return {"message": "!Server up! REST API for medical prescription. Check documentations in: https://api-vercel-git-main-juampa95.vercel.app/docs"}
 
 # Medicine
 
