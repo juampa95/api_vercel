@@ -50,11 +50,7 @@ async def query_medics_by_id(med_id: int):
 @app.post('/med/', response_model=SchemaMedic)
 async def create_med(med: SchemaMedic):
     try:
-        db_med = Medic(name=med.name,
-                       drug=med.drug,
-                       concentration=med.concentration,
-                       form=med.form,
-                       gtin=med.gtin)
+        db_med = Medic(name=med.name, drug=med.drug, concentration=med.concentration, form=med.form, gtin=med.gtin)
         db.session.add(db_med)
         db.session.commit()
         return db_med
