@@ -10,7 +10,8 @@ from models import Book as ModelBook
 from models import Author as ModelAuthor
 
 
-from models import Medic, Doctor, Prescriptions, Patients, PrescriptionDetails
+from models import Medic as ModelMedic
+from models import Doctor as ModelDoctor
 from schema import Doctor as SchemaDoctor
 from schema import Medic as SchemaMedic
 
@@ -34,29 +35,31 @@ async def root():
 
 @app.get('/med/')
 async def medics():
-    medics = db.session.query(Medic).all()
+    medics = db.session.query(ModelMedic).all()
     return medics
 
 
 @app.get('/med/{med_id}', response_model=SchemaMedic)
 async def query_medics_by_id(med_id: int):
-    db_medic = db.session.query(Medic).filter_by(id=med_id).first()
+    db_medic = db.session.query(ModelMedic).filter_by(id=med_id).first()
 
     if db_medic is None:
         raise HTTPException(status_code=404, detail=f'Medic with ID {med_id} does not found')
     return db_medic
 
 
-@app.post('/med/')
+@app.post('/med/', response_model=SchemaMedic)
 async def create_med(med: SchemaMedic):
     try:
-        db_med = Medic(name=med.name, drug=med.drug, concentration=med.concentration, form=med.form, gtin=med.gtin)
+        db_med = ModelMedic(name=med.name, drug=med.drug, concentration=med.concentration, form=med.form, gtin=med.gtin)
         db.session.add(db_med)
         db.session.commit()
+        db.session.flush()
         return db_med
 
     except SQLAlchemyError as e:
         db.session.rollback()  # Realiza un rollback en caso de error
+        print(f"Error al insertar en la base de datos: {str(e)}")
         return {"error": str(e)}
 
 
@@ -64,19 +67,19 @@ async def create_med(med: SchemaMedic):
 
 @app.get('/doc/')
 async def doc():
-    doc = db.session.query(Doctor).all()
+    doc = db.session.query(ModelDoctor).all()
     return doc
 
 @app.get('/doc/{doc_id}', response_model=SchemaDoctor)
 async def query_doctor_by_id(doc_id: int):
-    db_doc = db.session.query(Doctor).filter_by(id=doc_id).first()
+    db_doc = db.session.query(ModelDoctor).filter_by(id=doc_id).first()
     if db_doc is None:
         raise HTTPException(status_code=404, detail=f'Doctor with ID {doc_id} does not found')
     return db_doc
 
 @app.get('/doc/dni/{doc_dni}', response_model=SchemaDoctor)
 async def query_doctor_by_id(doc_dni: int):
-    db_doc = db.session.query(Doctor).filter_by(personal_id=doc_dni).first()
+    db_doc = db.session.query(ModelDoctor).filter_by(personal_id=doc_dni).first()
     if db_doc is None:
         raise HTTPException(status_code=404, detail=f'Doctor with Personal ID {doc_dni} does not found')
     return db_doc
