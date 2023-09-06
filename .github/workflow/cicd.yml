@@ -1,4 +1,4 @@
-name: Auto Deploy on Merge to Main
+name: Auto-Deploy on Merge to Main
 
 on:
   pull_request:
