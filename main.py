@@ -9,6 +9,12 @@ from schema import Author as SchemaAuthor
 from models import Book as ModelBook
 from models import Author as ModelAuthor
 
+
+from models import Medic, Doctor, Prescriptions, Patients, PrescriptionDetails
+from schema import Doctor as SchemaDoctor
+from schema import Medic as SchemaMedic
+
+
 import os
 from dotenv import load_dotenv
 
@@ -23,6 +29,40 @@ app.add_middleware(DBSessionMiddleware, db_url=os.environ['POSTGRES_URI'])
 @app.get("/")
 async def root():
     return {"message": "Server is up and running!"}
+
+
+@app.get('/med/')
+async def medics():
+    medics = db.session.query(Medic).all()
+    return medics
+
+
+@app.get('/med/{med_id}', response_model=SchemaMedic)
+async def query_medics_by_id(med_id: int):
+    db_medic = db.session.query(Medic).filter_by(id=med_id).first()
+
+    if db_medic is None:
+        raise HTTPException(status_code=404, detail=f'Medic with ID {med_id} does not found')
+    return db_medic
+
+
+@app.post('/med/', response_model=SchemaMedic)
+async def create_med(med: SchemaMedic):
+    try:
+        db_med = Medic(name=med.name,
+                       drug=med.drug,
+                       concentration=med.concentration,
+                       form=med.form,
+                       gtin=med.gtin)
+        db.session.add(db_med)
+        db.session.commit()
+        return db_med
+
+    except SQLAlchemyError as e:
+        db.session.rollback()  # Realiza un rollback en caso de error
+        return {"error": str(e)}
+
+
 
 
 @app.post('/book/', response_model=SchemaBook)

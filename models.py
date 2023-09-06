@@ -12,13 +12,13 @@ class Medic(Base):
     drug = Column(String(40))
     concentration = Column(String(20))
     form = Column(String(20))
-    GTIN = Column(Integer)
+    gtin = Column(Integer)
     time_created = Column(DateTime(timezone=True), server_default=func.now())
     time_updated = Column(DateTime(timezone=True), onupdate=func.now())
 
     __table_args__ = (
-        CheckConstraint('GTIN >= 10**13', name='check_gtin_min_length'),
-        CheckConstraint('GTIN < 10**14', name='check_gtin_max_length')
+        CheckConstraint('gtin >= 1000000000000', name='check_gtin_min_length'),
+        CheckConstraint('gtin < 100000000000000', name='check_gtin_max_length')
     )
 
 
@@ -31,8 +31,8 @@ class Doctor(Base):
     time_created = Column(DateTime(timezone=True), server_default=func.now())
 
     __table_args__ = (
-        CheckConstraint('personal_id >= 10**10', name='check_DNI_min_length'),
-        CheckConstraint('personal_id < 10**11', name='check_DNI_max_length')
+        CheckConstraint('personal_id >= 1000000000', name='check_DNI_min_length'),
+        CheckConstraint('personal_id < 10000000000', name='check_DNI_max_length')
     )
 
 
@@ -60,8 +60,8 @@ class Patients(Base):
     time_created = Column(DateTime(timezone=True), server_default=func.now())
 
     __table_args__ = (
-        CheckConstraint('personal_id >= 10**10', name='check_DNI_min_length'),
-        CheckConstraint('personal_id < 10**11', name='check_DNI_max_length')
+        CheckConstraint('personal_id >= 1000000000', name='check_DNI_min_length'),
+        CheckConstraint('personal_id < 10000000000', name='check_DNI_max_length')
     )
 
 

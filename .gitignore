@@ -1,2 +1,5 @@
 notas.md
 .env
+/alembic.ini
+/alembic_2/
+/alembic_old/
