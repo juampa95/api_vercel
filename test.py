@@ -48,3 +48,23 @@ if response.status_code == 200:
 else:
     print(f"Error al eliminar el libro. Código de estado: {response.status_code}")
     print(response.text)
+
+
+
+url = "https://api-vercel-git-main-juampa95.vercel.app/med/"
+
+# med = Medic(name=med.name,
+#                drug=med.drug,
+#                concentration=med.concentration,
+#                form=med.form,
+#                gtin=med.gtin)
+
+med = {"name": "tafirol","drug": "paracetamol","concentration": "1 mg","form": "pills","gtin": 14569875632147}
+
+response = requests.post(url, json=med)
+
+if response.status_code == 200:
+    print("upload successful")
+else:
+    print(f"ERROR: {response.status_code}")
+    print(response.text)

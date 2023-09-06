@@ -30,6 +30,7 @@ app.add_middleware(DBSessionMiddleware, db_url=os.environ['POSTGRES_URI'])
 async def root():
     return {"message": "Server is up and running!"}
 
+# Medicine
 
 @app.get('/med/')
 async def medics():
@@ -63,6 +64,26 @@ async def create_med(med: SchemaMedic):
         return {"error": str(e)}
 
 
+# Doctors
+
+@app.get('/doc/')
+async def doc():
+    doc = db.session.query(Doctor).all()
+    return doc
+
+@app.get('/doc/{doc_id}', response_model=SchemaDoctor)
+async def query_doctor_by_id(doc_id: int):
+    db_doc = db.session.query(Doctor).filter_by(id=doc_id).first()
+    if db_doc is None:
+        raise HTTPException(status_code=404, detail=f'Doctor with ID {doc_id} does not found')
+    return db_doc
+
+@app.get('/doc/dni/{doc_dni}', response_model=SchemaDoctor)
+async def query_doctor_by_id(doc_dni: int):
+    db_doc = db.session.query(Doctor).filter_by(personal_id=doc_dni).first()
+    if db_doc is None:
+        raise HTTPException(status_code=404, detail=f'Doctor with Personal ID {doc_dni} does not found')
+    return db_doc
 
 
 @app.post('/book/', response_model=SchemaBook)
