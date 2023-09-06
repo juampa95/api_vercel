@@ -6,8 +6,8 @@ class Medic(BaseModel):
     name: str
     drug: str
     concentration: str
-    form = str
-    gtin = int
+    form: str
+    gtin: int
 
     class Config:
         orm_mode = True
@@ -40,8 +40,8 @@ class Patients(BaseModel):
 
 
 class PrescriptionDetails(BaseModel):
-    medicine_id = int
-    qty = int
+    medicine_id: int
+    qty: int
 
     class Config:
         orm_mode = True
