@@ -1,4 +1,5 @@
 import requests
+from models import Medic
 
 url = "https://api-vercel-git-main-juampa95.vercel.app/author/"
 
@@ -47,11 +48,11 @@ else:
 
 url = "https://api-vercel-git-main-juampa95.vercel.app/med/"
 
-# med = Medic(name=med.name,
-#                drug=med.drug,
-#                concentration=med.concentration,
-#                form=med.form,
-#                gtin=med.gtin)
+# med = Medic(name="tafirol",
+#             drug="paracetamol",
+#             concentration="1 mg",
+#             form="pills",
+#             gtin=14569875632147)
 
 med = {
     "name": "tafirol",
@@ -61,7 +62,7 @@ med = {
     "gtin": 14569875632147
 }
 
-response = requests.post(url, json=med)
+response = requests.post(url, json={"name": "tafirol","drug": "paracetamol","concentration": "1 mg","form": "pills","gtin": 14569875632147})
 
 if response.status_code == 200:
     print("upload successful")

@@ -6,7 +6,7 @@ class Medic(BaseModel):
     drug: str
     concentration: str
     form: str
-    gtin: int
+    gtin: str
 
     class Config:
         orm_mode = True
