@@ -144,7 +144,7 @@ async def query_patients_by_id(p_id: int):
 async def create_patient(p: SchemaPatients):
     try:
         db_p = ModelPatients(name=p.name, lastname=p.lastname, personal_id=p.personal_id, date_of_birth=p.date_of_birth)
-        db.session.add(p)
+        db.session.add(db_p)
         db.session.commit()
         db.session.flush()
         return db_p
