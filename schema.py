@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from datetime import date
 
 class Medic(BaseModel):
     name: str
@@ -15,6 +15,7 @@ class Medic(BaseModel):
 class Doctor(BaseModel):
     name: str
     lastname: str
+    personal_id: str
 
     class Config:
         orm_mode = True
@@ -33,6 +34,7 @@ class Patients(BaseModel):
     name: str
     lastname: str
     personal_id: str
+    date_of_birth: date
 
     class Config:
         orm_mode = True
@@ -41,23 +43,6 @@ class Patients(BaseModel):
 class PrescriptionDetails(BaseModel):
     medicine_id: int
     qty: int
-
-    class Config:
-        orm_mode = True
-
-
-class Book(BaseModel):
-    title: str
-    rating: int
-    author_id: int
-
-    class Config:
-        orm_mode = True
-
-
-class Author(BaseModel):
-    name: str
-    age: int
 
     class Config:
         orm_mode = True

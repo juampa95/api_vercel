@@ -1,8 +1,8 @@
 """migration
 
-Revision ID: 4aa24f3d16fe
+Revision ID: a8dd41bb3d4b
 Revises: 
-Create Date: 2023-09-05 20:53:14.765211
+Create Date: 2023-09-05 23:04:21.926796
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '4aa24f3d16fe'
+revision: str = 'a8dd41bb3d4b'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -30,12 +30,10 @@ def upgrade() -> None:
     )
     op.create_table('doctors',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('personal_id', sa.Integer(), nullable=True),
+    sa.Column('personal_id', sa.String(length=11), nullable=True),
     sa.Column('name', sa.String(length=30), nullable=True),
     sa.Column('lastname', sa.String(length=20), nullable=True),
     sa.Column('time_created', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
-    sa.CheckConstraint('personal_id < 10000000000', name='check_DNI_max_length'),
-    sa.CheckConstraint('personal_id >= 1000000000', name='check_DNI_min_length'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('medicine',
@@ -44,23 +42,19 @@ def upgrade() -> None:
     sa.Column('drug', sa.String(length=40), nullable=True),
     sa.Column('concentration', sa.String(length=20), nullable=True),
     sa.Column('form', sa.String(length=20), nullable=True),
-    sa.Column('gtin', sa.Integer(), nullable=True),
+    sa.Column('gtin', sa.String(length=14), nullable=True),
     sa.Column('time_created', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('time_updated', sa.DateTime(timezone=True), nullable=True),
-    sa.CheckConstraint('gtin < 100000000000000', name='check_gtin_max_length'),
-    sa.CheckConstraint('gtin >= 1000000000000', name='check_gtin_min_length'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_medicine_id'), 'medicine', ['id'], unique=False)
     op.create_table('patients',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('personal_id', sa.Integer(), nullable=True),
+    sa.Column('personal_id', sa.String(length=11), nullable=True),
     sa.Column('name', sa.String(length=30), nullable=True),
     sa.Column('lastname', sa.String(length=20), nullable=True),
     sa.Column('date_of_birth', sa.Date(), nullable=True),
     sa.Column('time_created', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
-    sa.CheckConstraint('personal_id < 10000000000', name='check_DNI_max_length'),
-    sa.CheckConstraint('personal_id >= 1000000000', name='check_DNI_min_length'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('book',
