@@ -35,3 +35,17 @@ if response.status_code == 200:
 else:
     print(f"ERROR: {response.status_code}")
     print(response.text)
+
+
+#Prescription
+
+url = "https://api-vercel-git-main-juampa95.vercel.app/pres/"
+
+response = requests.post(url, json={"code": "AS153D88WE","patient_id": 1,"doctor_id": 1})
+
+if response.status_code == 200:
+    print("upload successful")
+else:
+    print(f"ERROR: {response.status_code}")
+    print(response.text)
+
