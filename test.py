@@ -16,7 +16,6 @@ else:
     print(f"Error al crear el autor. Código de estado: {response.status_code}")
     print(response.text)
 
-
 url = "https://api-vercel-git-main-juampa95.vercel.app/book/"
 
 book_data = {
@@ -36,21 +35,13 @@ else:
     print(f"Error al agregar el libro. Código de estado: {response.status_code}")
     print(response.text)
 
-
 url = "https://api-vercel-git-main-juampa95.vercel.app/delete-book/14"
 
 response = requests.delete(url, json=book_data)
 
-
-
 if response.status_code == 200:
     print("Libro eliminado exitosamente")
 else:
-    print(f"Error al eliminar el libro. Código de estado: {response.status_code}")
-    print(response.text)
-
-
-
 url = "https://api-vercel-git-main-juampa95.vercel.app/med/"
 
 # med = Medic(name=med.name,
@@ -59,7 +50,13 @@ url = "https://api-vercel-git-main-juampa95.vercel.app/med/"
 #                form=med.form,
 #                gtin=med.gtin)
 
-med = {"name": "tafirol","drug": "paracetamol","concentration": "1 mg","form": "pills","gtin": 14569875632147}
+med = {
+    "name": "tafirol",
+    "drug": "paracetamol",
+    "concentration": "1 mg",
+    "form": "pills",
+    "gtin": 14569875632147
+}
 
 response = requests.post(url, json=med)
 
@@ -67,4 +64,7 @@ if response.status_code == 200:
     print("upload successful")
 else:
     print(f"ERROR: {response.status_code}")
+    print(response.text)
+
+    print(f"Error al eliminar el libro. Código de estado: {response.status_code}")
     print(response.text)

@@ -47,7 +47,7 @@ async def query_medics_by_id(med_id: int):
     return db_medic
 
 
-@app.post('/med/', response_model=SchemaMedic)
+@app.post('/med/')
 async def create_med(med: SchemaMedic):
     try:
         db_med = Medic(name=med.name, drug=med.drug, concentration=med.concentration, form=med.form, gtin=med.gtin)
