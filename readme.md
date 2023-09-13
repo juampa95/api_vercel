@@ -20,5 +20,8 @@ navegador (GET)
 
 Otros tipos de solicitudes necesitan autenticación y eso todavía no se encuentra desarrollado. 
 
-
+##############################################################################################
+No VOY A SEGUIR ACTUALIZANDO ESTA VERSION DE LA APP. Se desarrolla una nueva en el siguiente repo
+https://github.com/juampa95/api-med
+##############################################################################################
 
